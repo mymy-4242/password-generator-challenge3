@@ -12,7 +12,7 @@ var generatePassword = function() {
   }
 
   console.log(passLength);
-1  
+  
   //choose to include lowercase characters
     var lowerConfirm = confirm(
       "Click OK to use lowercase letters in your password."
@@ -33,24 +33,35 @@ var generatePassword = function() {
     "Click OK to use special characters in your password."
   );
 
+  var lower = "abcdefghijklmnopqrstuvwxyz";
+  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var number = "0123456789";
+  var special = "#$%&()*+=-.,!?<>@-_;:";
+
   var passCriteria = "";
   if (lowerConfirm) {
-    passCriteria = "abcdefghijklmnopqrstuvwxyz";
-  } else if (upperConfirm) {
-    passCriteria = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  } else if (numConfirm) {
-    passCriteria = "0123456789";
-  } else if (specialCharConfirm) {
-    passCriteria= "#$%&()*+=-.,!?<>@-_;:";
-  } else {
-    alert("Please choose at least one type of character!");
-
-  }
+    passCriteria += lower;
+  } 
+  if (upperConfirm) {
+    passCriteria += upper; 
+  } 
+  if (numConfirm) {
+    passCriteria += number;
+  } 
+  if (specialCharConfirm) {
+    passCriteria += special; 
+  }  
  
   var pass = "";
   for (var i = 0; i < passLength; i++) {
-    pass += passCriteria.charAt(Math.floor(Math.random() * passCriteria.passLength));
+    pass += passCriteria.charAt(Math.floor(Math.random() * passCriteria.length));
   }
+
+  if (pass === "" || pass === null) {
+    window.alert("Please choose at least one type of character to include in your password!");
+    return generatePassword();
+  }
+
   console.log(pass);
   return pass;
 }
