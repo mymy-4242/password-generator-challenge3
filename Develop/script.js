@@ -1,14 +1,18 @@
-
+var generatePassword = function() {  
   //choose the number of characters
-  var characters = window.prompt(
-    "How many characters would you like this password to contain?"
+  var passLength = window.prompt(
+    "How many characters would you like this password to contain? Please choose a number from 8 - 128"
   );
 
-    if (characters < 8 || characters > 128) {
-      window.alert("Please choose a number from 8 - 128.");
-    }
-    console.log(characters);
-  
+  if (passLength > 128 || passLength < 8) {
+    window.alert("Please choose a number from 8 - 128.");
+    return generatePassword();
+  } else {
+    window.alert("Your password will be " + passLength + " characters.");
+  }
+
+  console.log(passLength);
+1  
   //choose to include lowercase characters
     var lowerConfirm = confirm(
       "Click OK to use lowercase letters in your password."
@@ -18,47 +22,40 @@
     var upperConfirm = confirm(
       "Click OK to use uppercase letters in your password."
     ); 
+  
+  //choose in include numbers
+  var numConfirm = confirm(
+    "Click OK to use numbers in your password."
+  );
+  
+  //choose to include special characters
+  var specialCharConfirm = confirm(
+    "Click OK to use special characters in your password."
+  );
 
-var generatePassword = function() {
   var passCriteria = "";
   if (lowerConfirm) {
     passCriteria = "abcdefghijklmnopqrstuvwxyz";
   } else if (upperConfirm) {
     passCriteria = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  } else if (numConfirm) {
+    passCriteria = "0123456789";
+  } else if (specialCharConfirm) {
+    passCriteria= "#$%&()*+=-.,!?<>@-_;:";
+  } else {
+    alert("Please choose at least one type of character!");
+
   }
  
-  var pass = ""
-  for (let i = 0; i < characters; i++) {
-    pass += passCriteria.charAt(Math.floor(Math.random() * passCriteria.characters));
+  var pass = "";
+  for (var i = 0; i < passLength; i++) {
+    pass += passCriteria.charAt(Math.floor(Math.random() * passCriteria.passLength));
   }
-  return(pass);
+  console.log(pass);
+  return pass;
 }
-  /*  
-  //choose in include numbers
-    var numConfirm = confirm(
-      "Click OK to use numbers in your password."
-    );
-    var num = []
-  //choose to include special characters
-    var specialCharConfirm = confirm(
-      "Click OK to use special characters in your password."
-    );
 
-    if (specialCharConfirm) {
-      var specialChar = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '=', '-', '.', '!', '?', '<', '>', '@', '-', '_', ';', ':'];
-      for (var i = 0; i < characters; i++) {
-        console.log(specialChar[i]);
-      }
-    }
-  //show results
-  var results = function(){
-    for (var i = 0; i < characters; ++i) {
-      console.log;
-    }
-  }
-    
-}
-*/
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -75,3 +72,12 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+/*while (passLength > 128 || passLength < 8) {
+  passLength = window.prompt(
+    "How many characters would you like this password to contain? Please choose a number from 8 - 128."
+  );
+}
+
+console.log (passLength);
+return passLength;
+*/
